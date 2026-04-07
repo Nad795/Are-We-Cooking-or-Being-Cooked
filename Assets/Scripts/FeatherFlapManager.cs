@@ -133,7 +133,7 @@ public class FeatherFlapManager : MonoBehaviour
         if(_countdownPanel != null) _countdownPanel.SetActive(true);
         if(_countdownText != null) _countdownText.text = "Time's Up!";
         yield return new WaitForSeconds(2f);
-        GameManager.Instance?.FinishLevel3(_score);
+        GameManager.Instance?.FinishGame(_score);
     }
 
     private void UpdateUI()

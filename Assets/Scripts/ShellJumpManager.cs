@@ -129,7 +129,7 @@ public class ShellJumpManager : MonoBehaviour
             _countdownText.text = $"Next Level!\nScore: {_score}";
         }
         yield return new WaitForSeconds(2f);
-        GameManager.Instance.FinishLevel1(_score);
+        GameManager.Instance.FinishGame(_score);
     }
 
     public bool IsPlaying => _isPlaying;

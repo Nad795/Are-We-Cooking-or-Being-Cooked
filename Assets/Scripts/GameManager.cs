@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,15 +7,16 @@ public class GameManager : MonoBehaviour
 
     [Header("Scene Names")]
     [SerializeField] private string _homepage = "Homepage";
-    [SerializeField] private string _level1 = "Level1";
-    [SerializeField] private string _level2 = "Level2";
-    [SerializeField] private string _level3 = "Level3";
+    [SerializeField] private string _shellJump = "ShellJump";
+    [SerializeField] private string _eggBeat = "EggBeat";
+    [SerializeField] private string _featherFlap = "FeatherFlap";
     [SerializeField] private string _result = "Result";
 
-    public int ScoreLevel1 {get; private set;}
-    public int ScoreLevel2 {get; private set;}
-    public int ScoreLevel3 {get; private set;}
-    public int TotalScore => ScoreLevel1 + ScoreLevel2 + ScoreLevel3;
+    public int LastScore {get; private set;}
+    public string LastGameName {get; private set;}
+
+    public enum GameType { ShellJump, EggBeat, FeatherFlap }
+    public GameType CurrentGame {get; private set;}
 
     private void Awake()
     {
@@ -30,45 +29,63 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void StartSession()
+    public void GoToHomepage()
     {
-        ScoreLevel1 = 0;
-        ScoreLevel2 = 0;
-        ScoreLevel3 = 0;
-        LoadLevel1();
+        SceneManager.LoadScene(_homepage);
     }
 
-    public void FinishLevel1(int score)
+    public void PlayShellJump()
     {
-        ScoreLevel1 = score;
-        LoadLevel2();
+        CurrentGame = GameType.ShellJump;
+        LastGameName = "Shell Jump";
+        SceneManager.LoadScene(_shellJump);
     }
 
-    public void FinishLevel2(int score)
+    public void PlayEggBeat()
     {
-        ScoreLevel2 = score;
-        LoadLevel3();
+        CurrentGame = GameType.EggBeat;
+        LastGameName = "Egg Beat";
+        SceneManager.LoadScene(_eggBeat);
     }
 
-    public void FinishLevel3(int score)
+    public void PlayFeatherFlap()
     {
-        ScoreLevel3 = score;
-        
-        int prevHighScore = PlayerPrefs.GetInt("HighScore", 0);
-        if (TotalScore > prevHighScore)
+        CurrentGame = GameType.FeatherFlap;
+        LastGameName = "Feather Flap";
+        SceneManager.LoadScene(_featherFlap);
+    }
+
+    public void ExitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+
+    public void FinishGame(int score)
+    {
+        LastScore = score;
+
+        string key = $"HighScore_{CurrentGame}";
+        int highScore = PlayerPrefs.GetInt(key, 0);
+        if (score > highScore)
         {
-            PlayerPrefs.SetInt("HighScore", TotalScore);
+            PlayerPrefs.SetInt(key, score);
             PlayerPrefs.Save();
         }
-
-        LoadResult();
+        SceneManager.LoadScene(_result);
     }
 
-    public void LoadHomePage() => SceneManager.LoadScene(_homepage);
-    public void LoadLevel1() => SceneManager.LoadScene(_level1);
-    public void LoadLevel2() => SceneManager.LoadScene(_level2);
-    public void LoadLevel3() => SceneManager.LoadScene(_level3);
-    public void LoadResult() => SceneManager.LoadScene(_result);
+    public int GetHighScore(GameType game)
+    {
+        string key = $"HighScore_{game}";
+        return PlayerPrefs.GetInt(key, 0);
+    }
 
-    public void RestartGame() => StartSession();
+    public int GetCurrentHighScore()
+    {
+        return GetHighScore(CurrentGame);
+    }
 }
