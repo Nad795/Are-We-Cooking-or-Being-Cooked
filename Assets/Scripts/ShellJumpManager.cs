@@ -146,7 +146,7 @@ public class ShellJumpManager : MonoBehaviour
     {
         if (_timerText != null)
         {
-            _timerText.text = $"Time: {Mathf.CeilToInt(_timeRemaining)}s";
+            _timerText.text = $"{Mathf.CeilToInt(_timeRemaining)}s";
         }
     }
 }

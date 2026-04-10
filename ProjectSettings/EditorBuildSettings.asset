@@ -9,13 +9,13 @@ EditorBuildSettings:
     path: Assets/Scenes/Homepage.unity
     guid: 43ceb2bafcdac8943ac4b18a3ad4df5e
   - enabled: 1
-    path: Assets/Scenes/Shell Jump.unity
+    path: Assets/Scenes/ShellJump.unity
     guid: 19a2f454ae8b6414090bad1e266ca9cf
   - enabled: 1
-    path: Assets/Scenes/Egg Beat.unity
+    path: Assets/Scenes/EggBeat.unity
     guid: 3664748eafea1ca4087edd27fa1829f3
   - enabled: 1
-    path: Assets/Scenes/Feather Flap.unity
+    path: Assets/Scenes/FeatherFlap.unity
     guid: 3650662ce5b42e544bcee2a61c028daf
   - enabled: 1
     path: Assets/Scenes/Result.unity

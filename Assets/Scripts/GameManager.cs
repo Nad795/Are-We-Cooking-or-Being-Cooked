@@ -37,21 +37,21 @@ public class GameManager : MonoBehaviour
     public void PlayShellJump()
     {
         CurrentGame = GameType.ShellJump;
-        LastGameName = "Shell Jump";
+        LastGameName = "ShellJump";
         SceneManager.LoadScene(_shellJump);
     }
 
     public void PlayEggBeat()
     {
         CurrentGame = GameType.EggBeat;
-        LastGameName = "Egg Beat";
+        LastGameName = "EggBeat";
         SceneManager.LoadScene(_eggBeat);
     }
 
     public void PlayFeatherFlap()
     {
         CurrentGame = GameType.FeatherFlap;
-        LastGameName = "Feather Flap";
+        LastGameName = "FeatherFlap";
         SceneManager.LoadScene(_featherFlap);
     }
 
