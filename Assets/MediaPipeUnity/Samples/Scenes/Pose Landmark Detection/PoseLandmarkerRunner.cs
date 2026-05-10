@@ -159,10 +159,74 @@ namespace Mediapipe.Unity.Sample.PoseLandmarkDetection
       }
     }
 
-    private void OnPoseLandmarkDetectionOutput(PoseLandmarkerResult result, Image image, long timestamp)
+    private void OnPoseLandmarkDetectionOutput(
+        PoseLandmarkerResult result,
+        Image image,
+        long timestamp)
     {
-      _poseLandmarkerResultAnnotationController.DrawLater(result);
-      DisposeAllMasks(result);
+        _poseLandmarkerResultAnnotationController.DrawLater(result);
+
+        if (result.poseLandmarks == null ||
+            result.poseLandmarks.Count == 0)
+        {
+            return;
+        }
+
+        var landmarks = result.poseLandmarks[0];
+
+        Vector3 nose = new Vector3(
+            landmarks.landmarks[0].x,
+            landmarks.landmarks[0].y,
+            landmarks.landmarks[0].z
+        );
+
+        Vector3 leftShoulder = new Vector3(
+            landmarks.landmarks[11].x,
+            landmarks.landmarks[11].y,
+            landmarks.landmarks[11].z
+        );
+
+        Vector3 rightShoulder = new Vector3(
+            landmarks.landmarks[12].x,
+            landmarks.landmarks[12].y,
+            landmarks.landmarks[12].z
+        );
+
+        Vector3 leftWrist = new Vector3(
+            landmarks.landmarks[15].x,
+            landmarks.landmarks[15].y,
+            landmarks.landmarks[15].z
+        );
+
+        Vector3 rightWrist = new Vector3(
+            landmarks.landmarks[16].x,
+            landmarks.landmarks[16].y,
+            landmarks.landmarks[16].z
+        );
+
+        Vector3 leftHip = new Vector3(
+            landmarks.landmarks[23].x,
+            landmarks.landmarks[23].y,
+            landmarks.landmarks[23].z
+        );
+
+        Vector3 rightHip = new Vector3(
+            landmarks.landmarks[24].x,
+            landmarks.landmarks[24].y,
+            landmarks.landmarks[24].z
+        );
+
+        PoseManager.Instance.UpdatePoseData(
+            nose,
+            leftShoulder,
+            rightShoulder,
+            leftHip,
+            rightHip,
+            leftWrist,
+            rightWrist
+        );
+
+        DisposeAllMasks(result);
     }
 
     private void DisposeAllMasks(PoseLandmarkerResult result)
