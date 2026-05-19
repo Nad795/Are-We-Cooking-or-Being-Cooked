@@ -2,27 +2,34 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform target;
-
     public float smoothSpeed = 5f;
 
-    void LateUpdate()
+    float targetY;
+
+    void Start()
     {
-        Vector3 desiredPosition =
+        targetY = transform.position.y;
+    }
+
+    void Update()
+    {
+        Vector3 targetPos =
             new Vector3(
                 0,
-                Mathf.Max(
-                    transform.position.y,
-                    target.position.y
-                ),
+                targetY,
                 -10
             );
 
         transform.position =
             Vector3.Lerp(
                 transform.position,
-                desiredPosition,
+                targetPos,
                 smoothSpeed * Time.deltaTime
             );
+    }
+
+    public void MoveToY(float y)
+    {
+        targetY = y;
     }
 }

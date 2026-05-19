@@ -4,67 +4,76 @@ public class ShellSpawner : MonoBehaviour
 {
     public GameObject shellPrefab;
 
-    public Transform player;
+    public Transform shellParent;
 
-    public int initialShellCount = 20;
-
+    [Header("Spawn")]
     public float verticalSpacing = 2.5f;
 
-    public float minX = -3f;
-    public float maxX = 3f;
+    public float leftX = -2.5f;
+    public float rightX = 2.5f;
 
-    float highestY;
+    public Shell currentShell;
+
+    bool lastSpawnLeft;
+
+    float nextY;
 
     void Start()
     {
-        SpawnInitialShells();
+        SpawnFirstShell();
     }
 
-    void Update()
+    void SpawnFirstShell()
     {
-        SpawnMoreShells();
+        bool left =
+            Random.value > 0.5f;
+
+        lastSpawnLeft = left;
+
+        currentShell =
+            SpawnShell(left, 0);
+
+        nextY += verticalSpacing;
     }
 
-    void SpawnInitialShells()
+    public Shell SpawnNextShell()
     {
-        float currentY = 0;
+        bool left =
+            GenerateSide();
 
-        for(int i = 0; i < initialShellCount; i++)
-        {
-            SpawnShell(currentY);
+        currentShell =
+            SpawnShell(left, nextY);
 
-            currentY += verticalSpacing;
-        }
+        nextY += verticalSpacing;
 
-        highestY = currentY;
+        return currentShell;
     }
 
-    void SpawnMoreShells()
+    Shell SpawnShell(bool isLeft, float y)
     {
-        if(player.position.y + 20f > highestY)
-        {
-            SpawnShell(highestY);
+        float x =
+            isLeft ? leftX : rightX;
 
-            highestY += verticalSpacing;
-        }
-    }
-
-    void SpawnShell(float yPos)
-    {
-        float randomX =
-            Random.Range(minX, maxX);
-
-        Vector3 spawnPos =
-            new Vector3(
-                randomX,
-                yPos,
-                0
+        GameObject obj =
+            Instantiate(
+                shellPrefab,
+                new Vector3(x, y, 0),
+                Quaternion.identity,
+                shellParent
             );
 
-        Instantiate(
-            shellPrefab,
-            spawnPos,
-            Quaternion.identity
-        );
+        Shell shell =
+            obj.GetComponent<Shell>();
+
+        shell.isLeft = isLeft;
+
+        return shell;
+    }
+
+    bool GenerateSide()
+    {
+        lastSpawnLeft = !lastSpawnLeft;
+
+        return lastSpawnLeft;
     }
 }

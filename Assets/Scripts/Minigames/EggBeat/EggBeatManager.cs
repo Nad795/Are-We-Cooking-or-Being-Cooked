@@ -167,6 +167,7 @@ public class EggBeatManager : MonoBehaviour
         HideTargets();
 
         resultPanel.SetActive(true);
+        directionText.gameObject.SetActive(false);
 
         finalScoreText.text =
             "Final Score : " + score;

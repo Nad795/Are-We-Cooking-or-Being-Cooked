@@ -2,61 +2,156 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Rigidbody2D rb;
+    public ShellSpawner spawner;
 
-    [Header("Jump")]
-    public float jumpForce = 10f;
+    public CameraFollow cameraFollow;
 
-    [Header("Horizontal")]
-    public float moveSpeed = 5f;
+    [Header("Current")]
+    public Shell currentShell;
+
+    Shell nextShell;
+
+    [Header("Settings")]
+    public Vector3 shellOffset =
+        new Vector3(0, 1f, 0);
+
+    bool canInput = true;
+
+    bool inputLocked;
+
+    void Start()
+    {
+        currentShell =
+            spawner.currentShell;
+
+        AttachToShell(currentShell);
+
+        nextShell =
+            spawner.SpawnNextShell();
+    }
 
     void Update()
     {
-        MoveHorizontal();
+        if(!canInput)
+            return;
+
+        if(!ShellJumpManager.Instance.gameRunning)
+            return;
+
+        ReadInput();
     }
 
-    void MoveHorizontal()
+    void ReadInput()
     {
-        float moveInput =
-            Input.GetAxisRaw("Horizontal");
+        float direction = 0;
 
-        // MediaPipe override
         if(
             BodyLeanDetector.Instance != null
         )
         {
-            if(
-                Mathf.Abs(
-                    BodyLeanDetector.Instance.moveDirection
-                ) > 0
-            )
-            {
-                moveInput =
-                    BodyLeanDetector.Instance.moveDirection;
-            }
+            direction =
+                BodyLeanDetector.Instance.moveDirection;
         }
 
-        rb.velocity =
-            new Vector2(
-                moveInput * moveSpeed,
-                rb.velocity.y
-            );
-    }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.CompareTag("Shell"))
+        // reset lock kalau badan balik netral
+        if(Mathf.Abs(direction) < 0.1f)
         {
-            Bounce();
+            inputLocked = false;
+            return;
+        }
+
+        // cegah spam input
+        if(inputLocked)
+            return;
+
+        inputLocked = true;
+
+        // kanan
+        if(direction > 0)
+        {
+            AttemptMove(true);
+        }
+
+        // kiri
+        else if(direction < 0)
+        {
+            AttemptMove(false);
         }
     }
 
-    void Bounce()
+    void AttemptMove(bool left)
     {
-        rb.velocity =
-            new Vector2(
-                rb.velocity.x,
-                jumpForce
+        canInput = false;
+
+        if(nextShell.isLeft == left)
+        {
+            MoveToNextShell();
+        }
+
+        else
+        {
+            Debug.Log("Wrong Direction");
+
+            Invoke(
+                nameof(EnableInput),
+                0.3f
             );
+        }
+    }
+
+    void MoveToNextShell()
+    {
+        Shell oldShell =
+            currentShell;
+
+        currentShell =
+            nextShell;
+
+        // pindah parent dulu
+        AttachToShell(currentShell);
+
+        // camera naik
+        cameraFollow.MoveToY(
+            currentShell.transform.position.y
+        );
+
+        ShellJumpManager.Instance.AddScore(1);
+
+        // spawn berikutnya
+        nextShell =
+            spawner.SpawnNextShell();
+
+        // destroy shell lama
+        Destroy(
+            oldShell.gameObject,
+            0.1f
+        );
+
+        EnableInput();
+    }
+
+    void EnableInput()
+    {
+        canInput = true;
+    }
+
+    void AttachToShell(Shell shell)
+    {
+        transform.SetParent(
+            shell.transform
+        );
+
+        transform.localPosition =
+            new Vector3(0, 1.5f, 0);
+
+        transform.localScale =
+            Vector3.one;
+
+        Vector3 pos =
+            transform.position;
+
+        pos.z = -1;
+
+        transform.position = pos;
     }
 }

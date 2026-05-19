@@ -8,7 +8,7 @@ public class BodyLeanDetector : MonoBehaviour
     public float hipCenterX;
 
     [Header("Settings")]
-    public float threshold = 0.05f;
+    public float threshold = 0.15f;
 
     [Header("Output")]
     public float moveDirection;
@@ -31,23 +31,19 @@ public class BodyLeanDetector : MonoBehaviour
         Vector3 rightHip =
             PoseManager.Instance.rightHip;
 
-        // titik tengah pinggul
         hipCenterX =
             (leftHip.x + rightHip.x) / 2f;
 
-        // reset
+        // mirror webcam correction
+        hipCenterX *= -1f;
+
         moveDirection = 0;
 
-        // kanan
-        if(hipCenterX > threshold)
-        {
-            moveDirection = 1;
-        }
+        // deadzone
+        if(Mathf.Abs(hipCenterX) < threshold)
+            return;
 
-        // kiri
-        else if(hipCenterX < -threshold)
-        {
-            moveDirection = -1;
-        }
+        moveDirection =
+            Mathf.Sign(hipCenterX);
     }
 }
