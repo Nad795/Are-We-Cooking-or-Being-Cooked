@@ -13,10 +13,18 @@ public class FeatherFlapManager : MonoBehaviour
 
     public TMP_Text scoreText;
     public TMP_Text finalScoreText;
+    public BirdController birdController;
+
+    public ObstacleSpawner obstacleSpawner;
 
     void Awake()
     {
         Instance = this;
+    }
+
+    void Start()
+    {
+        Time.timeScale = 1;
     }
 
     void Update()
@@ -38,7 +46,9 @@ public class FeatherFlapManager : MonoBehaviour
 
         gameOver = true;
 
-        Time.timeScale = 0;
+        birdController.enabled = false;
+
+        obstacleSpawner.enabled = false;
 
         gameOverPanel.SetActive(true);
 

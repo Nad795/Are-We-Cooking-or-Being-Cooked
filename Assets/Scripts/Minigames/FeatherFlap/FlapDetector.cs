@@ -5,7 +5,7 @@ public class FlapDetector : MonoBehaviour
     public static FlapDetector Instance;
 
     [Header("Threshold")]
-    public float flapThreshold = 0.15f;
+    public float flapThreshold = 0.25f;
 
     [Header("Cooldown")]
     public float flapCooldown = 0.4f;
@@ -15,6 +15,7 @@ public class FlapDetector : MonoBehaviour
     public float rightVelocity;
 
     public bool flapTriggered;
+    bool initialized;
 
     Vector3 previousLeftWrist;
     Vector3 previousRightWrist;
@@ -33,32 +34,41 @@ public class FlapDetector : MonoBehaviour
 
     void DetectFlap()
     {
+        if(PoseManager.Instance == null)
+            return;
+
         Vector3 currentLeft =
             PoseManager.Instance.leftWrist;
 
         Vector3 currentRight =
             PoseManager.Instance.rightWrist;
 
-        // hitung velocity
+        // init pertama
+        if(!initialized)
+        {
+            previousLeftWrist = currentLeft;
+            previousRightWrist = currentRight;
+
+            initialized = true;
+
+            return;
+        }
+
         leftVelocity =
             currentLeft.y - previousLeftWrist.y;
 
         rightVelocity =
             currentRight.y - previousRightWrist.y;
 
-        // harus dua tangan bergerak cukup besar
         bool leftFlap =
-            Mathf.Abs(leftVelocity)
-            > flapThreshold;
+            leftVelocity < -flapThreshold;
 
         bool rightFlap =
-            Mathf.Abs(rightVelocity)
-            > flapThreshold;
+            rightVelocity < -flapThreshold;
 
-        // trigger flap
         if(canFlap &&
-           leftFlap &&
-           rightFlap)
+        leftFlap &&
+        rightFlap)
         {
             TriggerFlap();
         }

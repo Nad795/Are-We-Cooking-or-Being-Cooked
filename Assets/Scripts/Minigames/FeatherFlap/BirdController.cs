@@ -2,13 +2,18 @@ using UnityEngine;
 
 public class BirdController : MonoBehaviour
 {
-    public Rigidbody2D rb;
+    Rigidbody2D rb;
 
     public float flapForce = 5f;
 
     bool previousFlapState;
 
-    void Update()
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    void FixedUpdate()
     {
         bool currentFlap =
             FlapDetector.Instance.flapTriggered;
@@ -18,12 +23,21 @@ public class BirdController : MonoBehaviour
             Flap();
         }
 
-        previousFlapState = currentFlap;
+        previousFlapState =
+            currentFlap;
     }
 
     void Flap()
     {
-        rb.velocity = Vector2.zero;
+        Debug.Log("BURUNG FLAP");
+
+        rb.WakeUp();
+
+        rb.velocity =
+            new Vector2(
+                rb.velocity.x,
+                0
+            );
 
         rb.AddForce(
             Vector2.up * flapForce,

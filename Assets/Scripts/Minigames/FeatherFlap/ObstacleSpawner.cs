@@ -11,13 +11,10 @@ public class ObstacleSpawner : MonoBehaviour
     [Header("Gap Settings")]
     public float gapSize = 3.5f;
 
-    [Header("Top Pipe Limits")]
-    public float topMinY = 2f;
-    public float topMaxY = 6f;
+    [Header("Center Range")]
+    public float minCenterY = -1f;
 
-    [Header("Bottom Pipe Limits")]
-    public float bottomMinY = -6f;
-    public float bottomMaxY = -2f;
+    public float maxCenterY = 3f;
 
     void Start()
     {
@@ -56,43 +53,28 @@ public class ObstacleSpawner : MonoBehaviour
             return;
         }
 
-        // Random posisi top pipe
-        float topY =
-            Random.Range(topMinY, topMaxY);
-
-        // Bottom otomatis mengikuti gap
-        float bottomY =
-            topY - gapSize;
-
-        // Clamp supaya bottom tetap aman
-        bottomY =
-            Mathf.Clamp(
-                bottomY,
-                bottomMinY,
-                bottomMaxY
+        float centerY =
+            Random.Range(
+                minCenterY,
+                maxCenterY
             );
 
-        // Set posisi
         topPipe.localPosition =
             new Vector3(
                 0,
-                topY,
+                centerY + gapSize / 2f,
                 0
             );
 
         bottomPipe.localPosition =
             new Vector3(
                 0,
-                bottomY,
+                centerY - gapSize / 2f,
                 0
             );
 
-        // Score zone di tengah gap
         if(scoreZone != null)
         {
-            float centerY =
-                (topY + bottomY) / 2f;
-
             scoreZone.localPosition =
                 new Vector3(
                     0,
