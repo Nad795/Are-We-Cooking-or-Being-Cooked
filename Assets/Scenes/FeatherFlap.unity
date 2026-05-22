@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flapThreshold: 0.1
-  flapCooldown: 0.4
+  flapCooldown: 0.1
   leftVelocity: 0
   rightVelocity: 0
   flapTriggered: 0
@@ -1451,7 +1451,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 2.5
+  m_GravityScale: 1.5
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2

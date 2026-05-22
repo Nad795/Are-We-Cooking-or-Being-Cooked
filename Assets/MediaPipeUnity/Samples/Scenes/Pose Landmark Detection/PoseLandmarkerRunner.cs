@@ -217,7 +217,6 @@ namespace Mediapipe.Unity.Sample.PoseLandmarkDetection
         );
 
         PoseManager.Instance.UpdatePoseData(
-            nose,
             leftShoulder,
             rightShoulder,
             leftHip,

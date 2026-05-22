@@ -5,7 +5,6 @@ public class PoseManager : MonoBehaviour
     public static PoseManager Instance;
 
     [Header("Landmarks")]
-    public Vector3 nose;
 
     public Vector3 leftShoulder;
     public Vector3 rightShoulder;
@@ -39,7 +38,6 @@ public class PoseManager : MonoBehaviour
     }
 
     public void UpdatePoseData(
-        Vector3 nosePos,
         Vector3 leftShoulderPos,
         Vector3 rightShoulderPos,
         Vector3 leftHipPos,
@@ -48,7 +46,6 @@ public class PoseManager : MonoBehaviour
         Vector3 rightWristPos
     )
     {
-        nose = ConvertToWorld(nosePos);
 
         leftShoulder = ConvertToWorld(leftShoulderPos);
         rightShoulder = ConvertToWorld(rightShoulderPos);

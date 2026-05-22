@@ -5,17 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: b90a68d951f2250409ae80401532538c
+  - enabled: 1
     path: Assets/Scenes/ShellJump.unity
     guid: 321bc75b4499934478abc018da164abe
   - enabled: 1
     path: Assets/Scenes/EggBeat.unity
     guid: 71658420608ba2841927997415dd2eae
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/FeatherFlap.unity
     guid: 14a24679d3bcbd140bef4f13e5c3722d
-  - enabled: 0
-    path: Assets/MediaPipeUnity/Samples/Scenes/Pose Landmark Detection/Pose Landmark
-      Detection.unity
-    guid: 927caf745c48e562eaa2cda915b091b4
   m_configObjects: {}

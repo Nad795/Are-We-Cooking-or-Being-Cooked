@@ -4,9 +4,8 @@ public class BirdController : MonoBehaviour
 {
     Rigidbody2D rb;
 
-    public float flapForce = 5f;
-
-    bool previousFlapState;
+    [Header("Flap")]
+    public float flapForce = 8f;
 
     void Awake()
     {
@@ -15,33 +14,21 @@ public class BirdController : MonoBehaviour
 
     void FixedUpdate()
     {
-        bool currentFlap =
-            FlapDetector.Instance.flapTriggered;
+        if(FlapDetector.Instance == null)
+            return;
 
-        if(currentFlap && !previousFlapState)
+        if(FlapDetector.Instance.flapTriggered)
         {
             Flap();
         }
-
-        previousFlapState =
-            currentFlap;
     }
 
     void Flap()
     {
-        Debug.Log("BURUNG FLAP");
-
-        rb.WakeUp();
-
         rb.velocity =
             new Vector2(
                 rb.velocity.x,
-                0
+                flapForce
             );
-
-        rb.AddForce(
-            Vector2.up * flapForce,
-            ForceMode2D.Impulse
-        );
     }
 }
