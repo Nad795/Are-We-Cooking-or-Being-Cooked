@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flapThreshold: 0.1
-  flapCooldown: 0.1
+  flapCooldown: 0.05
   leftVelocity: 0
   rightVelocity: 0
   flapTriggered: 0
@@ -694,7 +694,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5968a2b1b9913b141aae08764c530529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nose: {x: 0, y: 0, z: 0}
   leftShoulder: {x: 0, y: 0, z: 0}
   rightShoulder: {x: 0, y: 0, z: 0}
   leftHip: {x: 0, y: 0, z: 0}
@@ -1141,7 +1140,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.21357784}
   m_SpriteTilingProperty:
     border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
     pivot: {x: 0.5, y: 0.5}
@@ -1152,7 +1151,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 0.5728443}
   m_EdgeRadius: 0
 --- !u!4 &1418220267
 Transform:
@@ -1632,7 +1631,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.21259385}
   m_SpriteTilingProperty:
     border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
     pivot: {x: 0.5, y: 0.5}
@@ -1643,7 +1642,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 0.5748123}
   m_EdgeRadius: 0
 --- !u!4 &1575223764
 Transform:
