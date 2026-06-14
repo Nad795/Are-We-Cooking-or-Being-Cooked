@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
 
@@ -46,6 +47,35 @@ public class SettingsManager : MonoBehaviour
         }
 
         LoadSettings();
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    // Dipanggil setiap kali scene baru selesai dimuat
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Cari AudioSource BGM di scene baru (jika ada)
+        var musicObj = GameObject.Find("Music");
+        if (musicObj != null)
+        {
+            var newSource = musicObj.GetComponent<AudioSource>();
+            if (newSource != null)
+            {
+                musicSource = newSource;
+                musicSource.volume = musicVolume;
+            }
+        }
+
+        // Terapkan font ke semua teks di scene baru
+        ApplyFontToAllText();
     }
 
     private void Start()
