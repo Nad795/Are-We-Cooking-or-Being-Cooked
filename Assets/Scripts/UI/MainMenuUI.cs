@@ -4,12 +4,10 @@ using UnityEngine.SceneManagement;
 public class MainMenuUI : MonoBehaviour
 {
     [Header("Panels")]
-    public GameObject settingsPanel;
     public GameObject minigamePanel;
 
     void Start()
     {
-        settingsPanel.SetActive(false);
         minigamePanel.SetActive(false);
     }
 
@@ -20,11 +18,6 @@ public class MainMenuUI : MonoBehaviour
     public void PlayButton()
     {
         minigamePanel.SetActive(true);
-    }
-
-    public void SettingsButton()
-    {
-        settingsPanel.SetActive(true);
     }
 
     public void ExitGame()
@@ -38,11 +31,6 @@ public class MainMenuUI : MonoBehaviour
     // =========================
     // CLOSE PANELS
     // =========================
-
-    public void CloseSettings()
-    {
-        settingsPanel.SetActive(false);
-    }
 
     public void CloseMinigamePanel()
     {

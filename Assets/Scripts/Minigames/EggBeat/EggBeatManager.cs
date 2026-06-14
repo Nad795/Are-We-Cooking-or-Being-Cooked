@@ -28,7 +28,6 @@ public class EggBeatManager : MonoBehaviour
 
     public TMP_Text scoreText;
     public TMP_Text timerText;
-    public TMP_Text directionText;
 
     public GameObject resultPanel;
     public TMP_Text finalScoreText;
@@ -117,9 +116,6 @@ public class EggBeatManager : MonoBehaviour
         {
             rightTarget.SetActive(true);
         }
-
-        directionText.text =
-            currentDirection.ToString();
     }
 
     void HideTargets()
@@ -167,7 +163,6 @@ public class EggBeatManager : MonoBehaviour
         HideTargets();
 
         resultPanel.SetActive(true);
-        directionText.gameObject.SetActive(false);
 
         finalScoreText.text =
             "Final Score : " + score;
