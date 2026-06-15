@@ -14,18 +14,13 @@ public class BirdCollision : MonoBehaviour
         canCollide = true;
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if(!canCollide)
+        if (!canCollide)
             return;
 
-        if(collision.collider.CompareTag("Obstacle"))
+        if (other.CompareTag("Obstacle"))
         {
-            Debug.Log(
-                "Nabrak: " +
-                collision.gameObject.name
-            );
-
             FeatherFlapManager.Instance.GameOver();
         }
     }
