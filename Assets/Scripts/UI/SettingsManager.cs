@@ -13,6 +13,7 @@ public class SettingsManager : MonoBehaviour
 
     [Header("Fonts")]
     public TMP_FontAsset normalFont;
+    public TMP_FontAsset titleFont;
     public TMP_FontAsset dyslexiaFont;
 
     [Header("Dyslexia Toggle")]
@@ -169,12 +170,24 @@ public class SettingsManager : MonoBehaviour
 
     private void ApplyFontToAllText()
     {
-        TMP_FontAsset targetFont = dyslexiaEnabled ? dyslexiaFont : normalFont;
-        if (targetFont == null) return;
-
-        TMP_Text[] allTexts = FindObjectsOfType<TMP_Text>(true);
-        foreach (TMP_Text text in allTexts)
-            text.font = targetFont;
+        if (dyslexiaEnabled)
+        {
+            if (dyslexiaFont == null) return;
+            TMP_Text[] allTexts = FindObjectsOfType<TMP_Text>(true);
+            foreach (TMP_Text text in allTexts)
+                text.font = dyslexiaFont;
+        }
+        else
+        {
+            if (normalFont == null) return;
+            TMP_Text[] allTexts = FindObjectsOfType<TMP_Text>(true);
+            foreach (TMP_Text text in allTexts)
+            {
+                string n = text.gameObject.name;
+                bool isTitle = n == "Title" || n == "Paused" || n.Contains("Score");
+                text.font = (isTitle && titleFont != null) ? titleFont : normalFont;
+            }
+        }
     }
 
     private void UpdateToggleVisual()
