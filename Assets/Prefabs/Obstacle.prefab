@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1548736766391711278}
   - component: {fileID: 424749380557567452}
   - component: {fileID: 4410904424931711532}
+  - component: {fileID: 3141592653589793238}
   m_Layer: 0
   m_Name: TopPipe
   m_TagString: Obstacle
@@ -130,6 +131,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.22, y: 8.54}
   m_EdgeRadius: 0
+--- !u!114 &3141592653589793238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2495424019051089824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc7ee8bd17604399943ab00ad0d85737, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5662861257720096181
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,6 +154,7 @@ GameObject:
   - component: {fileID: 2551553443517197426}
   - component: {fileID: 7501348309660890096}
   - component: {fileID: 718817596604635780}
+  - component: {fileID: 2718281828459045235}
   m_Layer: 0
   m_Name: BottomPipe
   m_TagString: Obstacle
@@ -260,6 +274,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.22, y: 8.54}
   m_EdgeRadius: 0
+--- !u!114 &2718281828459045235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5662861257720096181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc7ee8bd17604399943ab00ad0d85737, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5771237648231938139
 GameObject:
   m_ObjectHideFlags: 0
