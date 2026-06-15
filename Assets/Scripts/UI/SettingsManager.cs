@@ -63,19 +63,19 @@ public class SettingsManager : MonoBehaviour
     // Dipanggil setiap kali scene baru selesai dimuat
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Cari AudioSource BGM di scene baru (jika ada)
-        var musicObj = GameObject.Find("Music");
-        if (musicObj != null)
+        foreach (AudioSource src in FindObjectsOfType<AudioSource>())
         {
-            var newSource = musicObj.GetComponent<AudioSource>();
-            if (newSource != null)
+            if (src.gameObject.name == "Music")
             {
-                musicSource = newSource;
-                musicSource.volume = musicVolume;
+                musicSource = src;
+                src.volume = musicVolume;
+            }
+            else
+            {
+                src.volume = sfxVolume;
             }
         }
 
-        // Terapkan font ke semua teks di scene baru
         ApplyFontToAllText();
     }
 
@@ -100,8 +100,14 @@ public class SettingsManager : MonoBehaviour
     {
         musicVolume = volume;
 
-        if (musicSource != null)
-            musicSource.volume = volume;
+        foreach (AudioSource src in FindObjectsOfType<AudioSource>())
+        {
+            if (src.gameObject.name == "Music")
+            {
+                musicSource = src;
+                src.volume = volume;
+            }
+        }
 
         PlayerPrefs.SetFloat("MusicVolume", volume);
         PlayerPrefs.Save();
@@ -119,6 +125,12 @@ public class SettingsManager : MonoBehaviour
     public void SetSFXVolume(float volume)
     {
         sfxVolume = volume;
+
+        foreach (AudioSource src in FindObjectsOfType<AudioSource>())
+        {
+            if (src.gameObject.name != "Music")
+                src.volume = volume;
+        }
 
         PlayerPrefs.SetFloat("SFXVolume", volume);
         PlayerPrefs.Save();
@@ -157,8 +169,18 @@ public class SettingsManager : MonoBehaviour
 
     private void ApplySettings()
     {
-        if (musicSource != null)
-            musicSource.volume = musicVolume;
+        foreach (AudioSource src in FindObjectsOfType<AudioSource>())
+        {
+            if (src.gameObject.name == "Music")
+            {
+                musicSource = src;
+                src.volume = musicVolume;
+            }
+            else
+            {
+                src.volume = sfxVolume;
+            }
+        }
 
         ApplyFontToAllText();
 
