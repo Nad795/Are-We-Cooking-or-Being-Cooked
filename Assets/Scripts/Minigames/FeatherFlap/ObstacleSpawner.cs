@@ -59,22 +59,17 @@ public class ObstacleSpawner : MonoBehaviour
                 maxCenterY
             );
 
-        float pipeHalfHeight =
-            topPipe
-                .GetComponent<BoxCollider2D>()
-                .size.y / 2f;
-
         topPipe.localPosition =
             new Vector3(
                 0,
-                centerY + gapSize / 2f + pipeHalfHeight,
+                centerY + gapSize / 2f,
                 0
             );
 
         bottomPipe.localPosition =
             new Vector3(
                 0,
-                centerY - gapSize / 2f - pipeHalfHeight,
+                centerY - gapSize / 2f,
                 0
             );
 

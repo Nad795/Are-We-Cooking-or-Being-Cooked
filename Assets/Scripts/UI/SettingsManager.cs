@@ -169,14 +169,12 @@ public class SettingsManager : MonoBehaviour
 
     private void ApplyFontToAllText()
     {
-        TMP_Text[] allTexts = FindObjectsOfType<TMP_Text>(true);
+        TMP_FontAsset targetFont = dyslexiaEnabled ? dyslexiaFont : normalFont;
+        if (targetFont == null) return;
 
+        TMP_Text[] allTexts = FindObjectsOfType<TMP_Text>(true);
         foreach (TMP_Text text in allTexts)
-        {
-            text.font = dyslexiaEnabled
-                ? dyslexiaFont
-                : normalFont;
-        }
+            text.font = targetFont;
     }
 
     private void UpdateToggleVisual()

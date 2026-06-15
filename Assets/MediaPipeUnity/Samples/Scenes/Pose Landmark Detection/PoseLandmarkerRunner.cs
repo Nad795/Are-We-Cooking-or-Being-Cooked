@@ -62,9 +62,6 @@ namespace Mediapipe.Unity.Sample.PoseLandmarkDetection
       SetupAnnotationController(_poseLandmarkerResultAnnotationController, imageSource);
       _poseLandmarkerResultAnnotationController.InitScreen(imageSource.textureWidth, imageSource.textureHeight);
 
-      // Hide the webcam feed and skeleton overlay — pose detection keeps running.
-      screen.gameObject.SetActive(false);
-
       var transformationOptions = imageSource.GetTransformationOptions();
       var flipHorizontally = transformationOptions.flipHorizontally;
       var flipVertically = transformationOptions.flipVertically;
@@ -167,8 +164,6 @@ namespace Mediapipe.Unity.Sample.PoseLandmarkDetection
         Image image,
         long timestamp)
     {
-        _poseLandmarkerResultAnnotationController.DrawLater(result);
-
         if (result.poseLandmarks == null ||
             result.poseLandmarks.Count == 0)
         {

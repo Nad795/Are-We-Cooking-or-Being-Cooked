@@ -23,24 +23,24 @@ public class SettingsUI : MonoBehaviour
     {
         settingsPanel.SetActive(false);
 
-        // Sync slider dengan nilai yang tersimpan
-        musicSlider.value =
-            SettingsManager.Instance.GetMusicVolume();
+        musicSlider.SetValueWithoutNotify(
+            SettingsManager.Instance.GetMusicVolume());
 
-        sfxSlider.value =
-            SettingsManager.Instance.GetSFXVolume();
+        sfxSlider.SetValueWithoutNotify(
+            SettingsManager.Instance.GetSFXVolume());
 
-        // Sync toggle TANPA memicu event (hindari side-effect ganda)
         dyslexiaToggle.SetIsOnWithoutNotify(
-            SettingsManager.Instance.IsDyslexiaEnabled()
-        );
+            SettingsManager.Instance.IsDyslexiaEnabled());
 
-        // Pastikan toggle di scene ini selalu terhubung ke SettingsManager,
-        // bahkan jika scene ini bukan MainMenu
+        musicSlider.onValueChanged.AddListener(
+            SettingsManager.Instance.SetMusicVolume);
+
+        sfxSlider.onValueChanged.AddListener(
+            SettingsManager.Instance.SetSFXVolume);
+
         dyslexiaToggle.onValueChanged.RemoveListener(OnDyslexiaToggleChanged);
         dyslexiaToggle.onValueChanged.AddListener(OnDyslexiaToggleChanged);
 
-        // Sync visual handle (jika ada di scene ini)
         UpdateLocalToggleVisual();
     }
 
