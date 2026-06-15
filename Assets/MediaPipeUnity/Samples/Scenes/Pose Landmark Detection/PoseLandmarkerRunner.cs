@@ -8,6 +8,7 @@ using System.Collections;
 using Mediapipe.Tasks.Vision.PoseLandmarker;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 namespace Mediapipe.Unity.Sample.PoseLandmarkDetection
 {
@@ -58,6 +59,15 @@ namespace Mediapipe.Unity.Sample.PoseLandmarkDetection
 
       // NOTE: The screen will be resized later, keeping the aspect ratio.
       screen.Initialize(imageSource);
+
+      // Stretch webcam feed to fill the full canvas — removes gray/black bars
+      var screenRT = screen.GetComponent<RectTransform>();
+      screenRT.anchorMin = Vector2.zero;
+      screenRT.anchorMax = Vector2.one;
+      screenRT.sizeDelta = Vector2.zero;
+      screenRT.anchoredPosition = Vector2.zero;
+      var fitter = screen.GetComponent<AspectRatioFitter>();
+      if (fitter != null) fitter.enabled = false;
 
       SetupAnnotationController(_poseLandmarkerResultAnnotationController, imageSource);
       _poseLandmarkerResultAnnotationController.InitScreen(imageSource.textureWidth, imageSource.textureHeight);
