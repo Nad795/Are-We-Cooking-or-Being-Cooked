@@ -142,7 +142,7 @@ public class PlayerController : MonoBehaviour
         );
 
         transform.localPosition =
-            new Vector3(0, 1f, 0);
+            new Vector3(0, 0.5f, 0);
 
         transform.localScale = new Vector3(
             0.75f,

@@ -34,7 +34,7 @@ public class ShellJumpManager : MonoBehaviour
 
     void Update()
     {
-        if(!gameRunning)
+        if (!gameRunning)
             return;
 
         UpdateTimer();
@@ -55,15 +55,17 @@ public class ShellJumpManager : MonoBehaviour
     {
         gameDuration -= Time.deltaTime;
 
-        if(gameDuration <= 0)
+        if (gameDuration <= 0)
         {
+            gameDuration = 0;
+
             EndGame();
         }
     }
 
     public void AddScore(int amount)
     {
-        if(!gameRunning)
+        if (!gameRunning)
             return;
 
         score += amount;
@@ -71,12 +73,13 @@ public class ShellJumpManager : MonoBehaviour
 
     void UpdateUI()
     {
-        scoreText.text =
-            "Score : " + score;
+        scoreText.text = score.ToString();
 
-        timerText.text =
-            "Time : " +
-            Mathf.CeilToInt(gameDuration);
+        int totalSeconds = Mathf.CeilToInt(gameDuration);
+        int minutes = totalSeconds / 60;
+        int seconds = totalSeconds % 60;
+
+        timerText.text = $"{minutes:00}:{seconds:00}";
     }
 
     void EndGame()

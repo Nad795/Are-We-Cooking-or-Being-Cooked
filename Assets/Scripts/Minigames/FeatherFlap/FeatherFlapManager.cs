@@ -30,7 +30,7 @@ public class FeatherFlapManager : MonoBehaviour
     void Update()
     {
         scoreText.text =
-            "Score : " + score;
+            score.ToString();
     }
 
     public void AddScore()

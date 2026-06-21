@@ -52,7 +52,6 @@ public class EggBeatManager : MonoBehaviour
     void StartGame()
     {
         score = 0;
-
         gameRunning = true;
 
         resultPanel.SetActive(false);
@@ -64,8 +63,9 @@ public class EggBeatManager : MonoBehaviour
     {
         gameDuration -= Time.deltaTime;
 
-        if(gameDuration <= 0)
+        if (gameDuration <= 0)
         {
+            gameDuration = 0;
             EndGame();
         }
     }
@@ -74,14 +74,14 @@ public class EggBeatManager : MonoBehaviour
     {
         if (!canInput) return;
 
-        if(currentDirection == Direction.Left &&
-           HipInputDetector.Instance.moveLeft)
+        if (currentDirection == Direction.Left &&
+            HipInputDetector.Instance.moveLeft)
         {
             Success();
         }
 
-        if(currentDirection == Direction.Right &&
-           HipInputDetector.Instance.moveRight)
+        if (currentDirection == Direction.Right &&
+            HipInputDetector.Instance.moveRight)
         {
             Success();
         }
@@ -89,7 +89,7 @@ public class EggBeatManager : MonoBehaviour
 
     IEnumerator TargetLoop()
     {
-        while(gameRunning)
+        while (gameRunning)
         {
             SpawnTarget();
 
@@ -108,7 +108,7 @@ public class EggBeatManager : MonoBehaviour
 
         HideTargets();
 
-        if(currentDirection == Direction.Left)
+        if (currentDirection == Direction.Left)
         {
             leftTarget.SetActive(true);
         }
@@ -146,25 +146,28 @@ public class EggBeatManager : MonoBehaviour
 
     void UpdateUI()
     {
-        scoreText.text =
-            "Score : " + score;
+        scoreText.text = score.ToString();
 
-        timerText.text =
-            "Time : " +
-            Mathf.CeilToInt(gameDuration);
+        int totalSeconds = Mathf.CeilToInt(gameDuration);
+        int minutes = totalSeconds / 60;
+        int seconds = totalSeconds % 60;
+
+        timerText.text = $"{minutes:00}:{seconds:00}";
     }
 
     void EndGame()
     {
         gameRunning = false;
 
-        StopCoroutine(targetCoroutine);
+        if (targetCoroutine != null)
+        {
+            StopCoroutine(targetCoroutine);
+        }
 
         HideTargets();
 
         resultPanel.SetActive(true);
 
-        finalScoreText.text =
-            "Final Score : " + score;
+        finalScoreText.text = "Final Score : " + score;
     }
 }
