@@ -1141,10 +1141,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstaclePrefab: {fileID: 5771237648231938139, guid: 52f9e6d9fd4c7fa4c996e5332d8d8224, type: 3}
-  spawnRate: 0.5
-  gapSize: 13
-  minCenterY: -1
-  maxCenterY: 3
+  spawnRate: 1.5
+  gapSize: 9
+  minCenterY: -2
+  maxCenterY: 2
 --- !u!4 &875787469
 Transform:
   m_ObjectHideFlags: 0
