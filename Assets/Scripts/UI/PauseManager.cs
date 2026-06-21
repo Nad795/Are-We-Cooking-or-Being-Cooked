@@ -7,6 +7,8 @@ public class PauseManager : MonoBehaviour
 
     private bool isPaused = false;
 
+    private static PauseManager activeInstance;
+
     void Start()
     {
         pausePanel.SetActive(false);
@@ -14,6 +16,9 @@ public class PauseManager : MonoBehaviour
 
     public void PauseGame()
     {
+        SettingsUI.CloseActiveSettings();
+
+        activeInstance = this;
         pausePanel.SetActive(true);
 
         Time.timeScale = 0f;
@@ -22,10 +27,20 @@ public class PauseManager : MonoBehaviour
 
     public void ResumeGame()
     {
+        if (activeInstance == this)
+            activeInstance = null;
+
         pausePanel.SetActive(false);
 
         Time.timeScale = 1f;
         isPaused = false;
+    }
+
+    // Dipanggil oleh SettingsUI supaya panel pause tidak tampil bersamaan dengan panel settings
+    public static void CloseActivePause()
+    {
+        if (activeInstance != null)
+            activeInstance.ResumeGame();
     }
 
     public void ExitToMainMenu()

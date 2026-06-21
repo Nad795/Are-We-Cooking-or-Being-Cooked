@@ -19,6 +19,8 @@ public class SettingsUI : MonoBehaviour
 
     public bool pauseGameWhenOpen = true;
 
+    private static SettingsUI activeInstance;
+
     void Start()
     {
         settingsPanel.SetActive(false);
@@ -68,6 +70,9 @@ public class SettingsUI : MonoBehaviour
 
     public void OpenSettings()
     {
+        PauseManager.CloseActivePause();
+
+        activeInstance = this;
         settingsPanel.SetActive(true);
 
         if (pauseGameWhenOpen)
@@ -80,9 +85,19 @@ public class SettingsUI : MonoBehaviour
 
     public void CloseSettings()
     {
+        if (activeInstance == this)
+            activeInstance = null;
+
         settingsPanel.SetActive(false);
 
         if (pauseGameWhenOpen)
             Time.timeScale = 1f;
+    }
+
+    // Dipanggil oleh PauseManager supaya panel settings tidak tampil bersamaan dengan panel pause
+    public static void CloseActiveSettings()
+    {
+        if (activeInstance != null)
+            activeInstance.CloseSettings();
     }
 }
