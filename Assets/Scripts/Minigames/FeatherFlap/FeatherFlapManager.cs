@@ -42,6 +42,8 @@ public class FeatherFlapManager : MonoBehaviour
 
     public void GameOver()
     {
+        Debug.Log("GameOver() dipanggil");
+
         if(gameOver) return;
 
         gameOver = true;
