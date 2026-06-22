@@ -369,10 +369,10 @@ RectTransform:
   - {fileID: 534870482}
   - {fileID: 624392508}
   - {fileID: 1310461999}
-  - {fileID: 1783354494}
-  - {fileID: 1532514311}
   - {fileID: 190212893}
   - {fileID: 70186397}
+  - {fileID: 1783354494}
+  - {fileID: 1532514311}
   m_Father: {fileID: 1532412582}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}

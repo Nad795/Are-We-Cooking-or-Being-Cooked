@@ -1871,10 +1871,10 @@ RectTransform:
   - {fileID: 236531940}
   - {fileID: 1305386003}
   - {fileID: 1390340913}
-  - {fileID: 1973362250}
-  - {fileID: 1812625868}
   - {fileID: 633068254}
   - {fileID: 1491733296}
+  - {fileID: 1973362250}
+  - {fileID: 1812625868}
   m_Father: {fileID: 1860529249}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
