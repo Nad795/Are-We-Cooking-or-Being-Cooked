@@ -67,6 +67,14 @@ public class SettingsManager : MonoBehaviour
         {
             if (src.gameObject.name == "Music")
             {
+                // Stop any leftover BGM not belonging to the scene that just loaded,
+                // so tracks from previous scenes don't keep playing underneath it.
+                if (src.gameObject.scene != scene)
+                {
+                    src.Stop();
+                    continue;
+                }
+
                 musicSource = src;
                 src.volume = musicVolume;
             }
